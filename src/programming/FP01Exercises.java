@@ -2,42 +2,33 @@ package programming;
 
 import java.util.List;
 
-public class FP01Exercises { 
-	
-	public static void main(String[] args) {
-		List<Integer> numbers = List.of(12, 9, 13, 4, 6, 2, 4, 12, 15);
-		printCubesOfOddNumbersInListFunctional(numbers);
-//		printOddNumbersInListFunctional(numbers);
-		
-		List<String> courses = List.of("Spring", "Spring Boot", "API" , "Microservices","AWS", "PCF","Azure", "Docker", "Kubernetes");
-		
-		// courses.stream()
-		// .forEach(System.out::println);
+public class FP01Exercises {
 
-		// courses.stream()
-		// .filter(course -> course.contains("Spring"))
-		// .forEach(System.out::println);
+    public static void main(String[] args) {
+        List<Integer> numbers = List.of(12, 9, 13, 4, 6, 2, 4, 12, 15);
+        // Exercise 1
+        numbers.stream().filter(n -> 0 != n % 2).forEach(System.out::println);
+        System.out.println();
 
-		// courses.stream()
-		// .filter(course -> course.length() >= 4)
-		// .forEach(System.out::println);
-		
-		courses.stream()
-			.map(course -> course + " " + course.length()) 
-			.forEach(System.out::println);
-	}
+        List<String> courses = List.of("Spring", "Spring Boot", "API", "Microservices", "AWS",
+                "PCF", "Azure", "Docker", "Kubernetes");
+        // Exercise 2
+        courses.forEach(System.out::println);
+        System.out.println();
+        // Exercise 3
+        courses.stream().filter(c -> c.contains("Spring")).forEach(System.out::println);
+        System.out.println();
+        // Exercise 4
+        courses.stream().filter(c -> 4 <= c.length()).forEach(System.out::println);
+        System.out.println();
 
-	private static void printOddNumbersInListFunctional(List<Integer> numbers) {
-		numbers.stream() // Convert to Stream
-				.filter(number -> number % 2 != 0) // Lamdba Expression
-				.forEach(System.out::println);// Method Reference
-	}
+        // Exercise 5
+        numbers.stream().filter(n -> 0 != n % 2).map(n -> n * n * n).forEach(System.out::println);
+        System.out.println();
 
-	private static void printCubesOfOddNumbersInListFunctional(List<Integer> numbers) {
-		numbers.stream() // Convert to Stream
-				.filter(number -> number % 2 != 0) // Lamdba Expression
-				.map (number -> number * number * number)
-				.forEach(System.out::println);// Method Reference
-	}
+        // Exercise 6
+        courses.stream().map(c -> c + " " + c.length()).forEach(System.out::println);
+        System.out.println();
+    }
 
 }
