@@ -14,70 +14,59 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 public class FP03FunctionalInterfaces2 {
+    private static final Random GEN = new Random();
 
-	@SuppressWarnings("unused")
-	public static void main(String[] args) {
+    @SuppressWarnings("unused")
+    public static void main(String[] args) {
+        List<Integer> numbers = List.of(12, 9, 13, 4, 6, 2, 4, 12, 15);
 
-		List<Integer> numbers = List.of(12, 9, 13, 4, 6, 2, 4, 12, 15);
+        Predicate<Integer> isEvenPredicate = (Integer x) -> 0 == x % 2;
+        Function<Integer, Integer> squareFunction = x -> x * x;
+        Function<Integer, String> stringOutputFunction = x -> x + " ";
+        Consumer<Integer> soutConsumer = x -> System.out.println(x);
+        BinaryOperator<Integer> sumBinaryOperator = (x, y) -> x + y;
 
-		Predicate<Integer> isEvenPredicate = (Integer x) -> x % 2 == 0;
+        // numbers.stream().filter(isEvenPredicate).map(squareFunction).forEach(soutConsumer);
+        int sum = numbers.stream().reduce(0, sumBinaryOperator);
+        // System.out.println(sum);
 
-		Function<Integer, Integer> squareFunction = x -> x * x;
-		
-		Function<Integer, String> stringOutpuFunction = x -> x + " ";
+        //No input -> Return Something
+        Supplier<Integer> randomIntegerSupplier = () -> {
+            GEN.nextInt();
+            return GEN.nextInt(1000);
+        };
+        // System.out.println(randomIntegerSupplier.get());
 
-		Consumer<Integer> sysoutConsumer = x -> System.out.println(x);
+        UnaryOperator<Integer> unaryOperator = x -> 3 * x;
+        // System.out.println(unaryOperator.apply(10));
 
-		BinaryOperator<Integer> sumBinaryOperator = (x, y) -> x + y;
-		
-		//No input > Return Something
-		Supplier<Integer> randomIntegerSupplier = () -> {
-			Random random = new Random();
-			return random.nextInt(1000);
-		};
-		
-		//System.out.println(randomIntegerSupplier.get());
-		
-		UnaryOperator<Integer> unaryOperator = x -> 3 * x;
-		System.out.println(unaryOperator.apply(10));
-		
-		BiPredicate<Integer, String> biPredicate = (number,str) -> {
-			return number<10 && str.length()>5;
-		};
-		
-		System.out.println(biPredicate.test(10, "in28minutes"));
-		
-		BiFunction<Integer, String, String> biFunction = (number,str) -> {
-			return number + " " + str;
-		};
-		
-		System.out.println(biFunction.apply(15, "in28minutes"));
-		
-		BiConsumer<Integer, String> biConsumer = (s1,s2) -> {
-			System.out.println(s1);
-			System.out.println(s2);
-		};
-		
-		biConsumer.accept(25, "in28Minutes");
-		
-		BinaryOperator<Integer> sumBinaryOperator2 = (x, y) -> x + y;
-		
-		IntBinaryOperator intBinaryOperator = (x,y) -> x + y;
-		
-		//IntBinaryOperator
-		//IntConsumer
-		//IntFunction
-		//IntPredicate
-		//IntSupplier
-		//IntToDoubleFunction
-		//IntToLongFunction
-		//IntUnaryOperator
-		
-		//Long, Double, Int
-		
+        BiPredicate<Integer, String> biPredicate = (n, s) -> n < s.length();
+        // System.out.println(biPredicate.test(10, "in28minutes"));
 
-		//numbers.stream().filter(isEvenPredicate).map(squareFunction).forEach(sysoutConsumer);
+        BiFunction<Integer, String, String> biFunction = (n, s) -> n + " " + s;
+        // System.out.println(biFunction.apply(15, "in28minutes"));
 
-		//int sum = numbers.stream().reduce(0, sumBinaryOperator);
-	}
+        BiConsumer<Integer, String> biConsumer = (n, s) -> {
+            System.out.println(n);
+            System.out.println(s);
+        };
+        // biConsumer.accept(25, "in28Minutes");
+
+        IntBinaryOperator intBinaryOperator = (x, y) -> x + y;
+        System.out.println(intBinaryOperator.applyAsInt(11, 14));
+
+        /*
+        //IntBinaryOperator
+        //IntConsumer
+        //IntFunction
+        //IntPredicate
+        //IntSupplier
+        //IntToDoubleFunction
+        //IntToLongFunction
+        //IntUnaryOperator
+
+        //Long, Double, Int
+        */
+    }
+
 }
