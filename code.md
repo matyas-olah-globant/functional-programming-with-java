@@ -118,9 +118,10 @@ List<String> courses = List.of("Spring", "Spring Boot", "API", "Microservices", 
 
 courses.replaceAll(str -> str.toUpperCase()) // Error
 
-List<String> modifyableCourses = new ArrayList(courses);
+List<String> modifiableCourses = new ArrayList(courses);
 
 modifyableCourses.replaceAll(str -> str.toUpperCase())
+
 modifyableCourses.removeIf(course -> 6 > course.length())
 
 Runnable runnable3 = () -> IntStream.range(0, 10000).forEach(i -> System.out.println(Thread.currentThread().getId() + ":" + i))
